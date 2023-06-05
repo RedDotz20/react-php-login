@@ -1,43 +1,37 @@
 <?php
+require_once 'db.php'; // Include the database connection file
 
-session_start();
-require_once 'database.php';
-
-// Function to validate user credentials
-function validateUser($username, $password) {
-    global $pdo;
-
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
-    $stmt->bindParam(':username', $username);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if ($user && password_verify($password, $user['password'])) {
-        return $user;
-    }
-
-    return false;
-}
-
-// Check if the form is submitted
+// Handle login request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $user = validateUser($username, $password);
+    // Fetch user from the database (replace 'users' with your table name)
+    $query = "SELECT * FROM users WHERE username = '$username'";
+    $result = $connection->query($query);
 
-    if ($user) {
-        // Set user data in session
-        $_SESSION['user'] = $user;
+    if ($result->num_rows === 1) {
+        $row = $result->fetch_assoc();
+        $storedPassword = $row['password'];
 
-        // Redirect to protected content or any other page
-        header('Location: protected.php');
-        exit();
+        // Verify password (replace 'password_hash' with the column name where passwords are stored)
+        if (password_verify($password, $storedPassword)) {
+            // Perform successful login logic
+            // For example, start a session or generate a JWT token
+            // You can return a JSON response indicating success
+            echo json_encode(['message' => 'Login successful']);
+        } else {
+            // Handle invalid credentials
+            // You can return a JSON response indicating failure
+            echo json_encode(['message' => 'Invalid credentials']);
+        }
     } else {
-        // Invalid credentials, redirect to login page with error
-        header('Location: login.html?error=1');
-        exit();
+        // Handle user not found
+        // You can return a JSON response indicating failure
+        echo json_encode(['message' => 'User not found']);
     }
 }
+
+$connection->close();
 
 ?>

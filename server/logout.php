@@ -1,12 +1,15 @@
 <?php
 
-session_start();
+require_once 'database.php'; // Include the database connection file
 
-// Destroy the session
-session_destroy();
+// Handle logout request
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // logout logic
+    // For example, destroy session data or invalidate JWT token
+    // You can return a JSON response indicating success
+    echo json_encode(['message' => 'Logout successful']);
+}
 
-// Redirect to login page
-header('Location: login.html');
-exit();
+$connection->close();
 
 ?>
