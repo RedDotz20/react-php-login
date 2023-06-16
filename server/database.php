@@ -2,14 +2,22 @@
 
 // Database connection details
 $host = 'localhost';
-$db = 'your_database_name';
-$user = 'your_username';
-$password = 'your_password';
+$database = 'react_php';
+$username = 'root';
+$password = 'admin';
 
 // Create a database connection
-$connection = new mysqli($host, $user, $password, $db);
-if ($connection->connect_error) {
-    die('Connection failed: ' . $connection->connect_error);
+$connection = mysqli_connect($host, $username, $password, $database);
+
+if (!$connection) {
+    die('Could not connect to MySQL: ' . mysqli_connect_error());
 }
 
+if (mysqli_ping($connection)) {
+    echo "Connection is active.";
+} else {
+    echo "Connection is dead.";
+}
+
+mysqli_close($connection);
 ?>
