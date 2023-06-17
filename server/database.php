@@ -19,5 +19,4 @@ if (mysqli_ping($connection)) {
     echo "Connection is dead.";
 }
 
-mysqli_close($connection);
 ?>
