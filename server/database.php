@@ -10,13 +10,13 @@ $password = 'admin';
 $connection = mysqli_connect($host, $username, $password, $database);
 
 if (!$connection) {
-    die('Could not connect to MySQL: ' . mysqli_connect_error());
+	die('Could not connect to MySQL: ' . mysqli_connect_error());
 }
 
 if (mysqli_ping($connection)) {
-    echo "Connection is active.";
+	echo 'Connection is active.';
 } else {
-    echo "Connection is dead.";
+	echo 'Connection is dead.';
 }
 
 ?>
