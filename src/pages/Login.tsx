@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { useState } from 'react';
 
-type eventType = { preventDefault: () => void }
+type eventType = { preventDefault: () => void };
 
 export default function Login() {
 	const [username, setUsername] = useState('');
@@ -10,11 +9,12 @@ export default function Login() {
 	const handleLogin = async (e: eventType) => {
 		e.preventDefault();
 		try {
-			const response = await axios.post('/api/login.php', {
-				username,
-				password,
-			});
-			console.log(response.data); // Handle the response as needed
+			// const response = await axios.post('/api/login.php', {
+			// 	username,
+			// 	password,
+			// });
+			// console.log(response.data);
+			console.log('submit response');
 		} catch (error) {
 			console.error(error);
 		}
@@ -23,7 +23,10 @@ export default function Login() {
 	return (
 		<div>
 			<h2>Login</h2>
-			<form onSubmit={handleLogin}>
+			<form
+				onSubmit={handleLogin}
+				style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}
+			>
 				<input
 					type="text"
 					placeholder="Username"
