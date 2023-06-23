@@ -5,7 +5,7 @@ interface userType {
 	password: string;
 }
 
-export async function LoginUser(values: userType) {
+export async function loginUser(values: userType) {
 	await axiosInstance
 		.post(`/login.php`, {
 			username: values.username,

@@ -1,11 +1,7 @@
 import axios from 'axios';
+import { BASE_URL } from './config';
 
-const SERVER_HOSTNAME = 'localhost';
-const SERVER_PORT = 4000;
-
-const baseURL = `http://${SERVER_HOSTNAME}:${SERVER_PORT}`;
-
-export const axiosInstance = axios.create({ baseURL: baseURL });
+export const axiosInstance = axios.create({ baseURL: BASE_URL });
 
 axiosInstance.interceptors.response.use(
 	(response) => response,
