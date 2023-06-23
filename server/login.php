@@ -2,6 +2,10 @@
 
 require_once 'database.php';
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$json = file_get_contents('php://input');
 	$data = json_decode($json, true);

@@ -1,20 +1,17 @@
 import { useState } from 'react';
+import { loginUser } from '../api/login';
 
 type eventType = { preventDefault: () => void };
 
 export default function Login() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const values = { username: username, password: password };
 
 	const handleLogin = async (e: eventType) => {
 		e.preventDefault();
 		try {
-			// const response = await axios.post('/api/login.php', {
-			// 	username,
-			// 	password,
-			// });
-			// console.log(response.data);
-			console.log('submit response');
+			await loginUser(values);
 		} catch (error) {
 			console.error(error);
 		}
